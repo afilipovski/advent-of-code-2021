@@ -18,7 +18,7 @@ int getnumber(int* n) {
     *n = temp;
     return 1;
 }
-int analyze_line() {
+int analyze_line(int diagonal) {
     int x1,y1,x2,y2;
     if (!(getnumber(&x1) && getnumber(&y1) && getnumber(&x2) && getnumber(&y2)))
         return 0;
@@ -28,6 +28,8 @@ int analyze_line() {
     }
     else {
         int m = (y2-y1)/(x2-x1);
+        if (m != 0 && !diagonal)
+            return 1;
         int b = y1 - m*x1;
         for (int i = min(x1,x2); i<=max(x1,x2); i++) {
             grid[m*i + b][i]++;
@@ -36,7 +38,7 @@ int analyze_line() {
     return 1;
 }
 int main() {
-    while(analyze_line());
+    while(analyze_line(0));
     int places = 0;
     for(int i=0; i<GRIDLENGTH; i++) {
         for(int j=0; j<GRIDLENGTH; j++) {
