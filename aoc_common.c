@@ -13,3 +13,13 @@ int read_word(char* str) {
     str[i]=0;
     return i;
 }
+int raw_number(int* num) {
+	int c = getchar();
+	if (!isdigit(c)) return 0;
+	*num = 0;
+	do {
+		*num = 10 * (*num) + c - '0';
+	} while(isdigit(c = getchar()));
+	ungetc(c,stdin);
+	return 1;
+}
